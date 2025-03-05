@@ -1,10 +1,10 @@
 {
-  "name": "translation-tool",
+  "name": "Anuvachan",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4400 --serve-path /translation-tool/",
-    "build": "ng build --base-href /translation-tool/",
+    "start": "ng serve --port 4400 --serve-path /Anuvachan/",
+    "build": "ng build --base-href /Anuvachan/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
