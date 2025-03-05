@@ -1,0 +1,77 @@
+<div class="input-container d-flex justify-content-center mt-3">
+<img class="imageTop" src="assets/images/mandana-bottom.svg" alt="">
+  <div class="header primary-text">अवसान</div>
+<img class="imageBottom" src="assets/images/mandana-bottom.svg" alt="">
+  <div class="minimal-btn d-flex justify-content-center">
+    <input
+      type="file"
+      id="fileInput"
+      (change)="setData($event)"
+      accept=".json, .xlx, .xlsx"
+    />
+    <input
+      type="file"
+      id="fileInput"
+      (change)="setData($event)"
+      accept=".json, .xlx, .xlsx"
+    />
+    <label for="fileInput" class="custom-file-upload d-flex align-items-center">
+      <i class="pi pi-upload px-2"></i>
+      {{ fileName || "एक्सेल शीट यहाँ अपलोड करें" }}</label
+    >
+  </div>
+</div>
+<!-- <img class="imageBottomBack" src="assets/images/back-paper.svg" alt=""> -->
+
+<div class="btn d-flex justify-content-center">
+  <div class="btn-wrapper d-flex justify-content-center">
+    <div
+      class="chip-btn d-flex justify-content-center mr-2"
+      (click)="[getTranslation(), (showSlide = true)]"
+    >
+      <i class="pi pi-language mx-2 mt-1"></i>
+      <p>अनुवचन</p>
+    </div>
+    <div
+      class="chip-btn d-flex justify-content-center"
+      *ngIf="totalApiCalls != 0 && completeApiCalls == totalApiCalls"
+      (click)="exportToExcel('Translation_file')"
+    >
+      <i class="pi pi-file-export mx-2 mt-1"></i>
+      <p>अनुवचन निर्यात करें</p>
+    </div>
+  </div>
+</div>
+
+<div class="valueContainer"  [ngClass]="{ showSlide: showSlide }">
+  <div class="card px-2" *ngIf="completeApiCalls != totalApiCalls">
+    <p-progressBar [value]="getCompletePercent()" />
+  </div>
+
+  <div class="card mt-2 p-2" *ngIf="InputJsonArray.length">
+    <p-table
+      [value]="InputJsonArray"
+      styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines "
+      [tableStyle]="{ 'min-width': '20rem' }"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th width="4%">Sno.</th>
+          <th>Sanskrit</th>
+          <th>Hindi</th>
+          <th>English</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product let-i="rowIndex">
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>{{ product?.sanskrit }}</td>
+          <td>{{ product?.hindiMeaning }}</td>
+          <td>{{ product?.englishMeaning  || 'Processing..'}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<p-toast />

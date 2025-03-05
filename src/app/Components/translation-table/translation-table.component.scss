@@ -1,0 +1,149 @@
+@import "../../../variable.scss";
+
+p {
+  margin: 0;
+}
+.checkbox {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+::ng-deep {
+  .p-datatable-gridlines .p-datatable-tbody > tr > td {
+    border-bottom: 1px solid #ccc; /* Adjust as needed */
+    border-right: 1px solid #ccc;
+  }
+
+  .p-datatable-gridlines .p-datatable-tbody > tr:last-child > td {
+    border-bottom: none;
+  }
+  .custom-file-upload {
+    background: none !important;
+    color: $primary-font !important;
+    padding: 16px 24px !important;
+    width: 40vw;
+    min-width: 346px;
+    display: flex;
+    justify-content: center;
+    border: none;
+  }
+  .p-progressbar {
+    // height: 20px;
+    background: $primary-bg;
+    border: none;
+    border-radius: 0;
+  }
+  .p-progressbar-determinate .p-progressbar-value {
+    background-color: $primary-font;
+  }
+}
+
+//
+.file-input-container {
+  position: relative;
+  display: inline-block;
+}
+
+#fileInput {
+  display: none; /* Hide the default file input */
+}
+
+.header {
+  // margin-top: 60px;
+  font-size: 80px;
+  font-weight: 500;
+  position: absolute;
+  top: 16%;
+}
+
+.imageBottomBack{
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  z-index: 0;
+}
+.input-container{
+  .imageBottom{
+    position: absolute;
+    top: 22%
+  }
+  .imageTop{
+    position: absolute;
+    top: -5%;
+    transform: scaleY(-1);
+  }
+}
+
+.minimal-btn {
+  border: 2px solid $primary-font;
+z-index: 1;
+  position: absolute;
+  top: 50%;
+}
+.btn-wrapper {
+  position: absolute;
+  top: 60%;
+
+  .chip-btn {
+    border: 2px solid $primary-font;
+    padding: 8px 24px;
+    border-radius: 23px;
+    background-color: $primary-font;
+    color: $primary-bg;
+    &:first-child {
+      margin-right: 10px;
+    }
+  }
+}
+.valueContainer {
+  position: absolute;
+  top: 70%;
+  width: 100%;
+  height: 100%;
+  transition: all ease-in-out 1s;
+  transform: translateY(100%);
+  &.showSlide {
+    transform: translateY(0);
+  }
+}
+
+
+.card {
+  background: none;
+  border: none;
+}
+
+:host ::ng-deep {
+  .p-datatable {
+    border-radius: 20px;
+    thead {
+      tr,
+      th {
+        background-color: $highlight;
+        border: 2px solid #b0a086;
+      }
+    }
+    tbody {
+      td {
+        border: 2px solid #b0a086;
+      }
+    }
+    table {
+      .p-datatable-tbody > tr {
+        color: $primary-font;
+
+        &:nth-child(odd) {
+          background-color: $primary-bg;
+        }
+
+        &:nth-child(even) {
+          background-color: #f0ede7;
+        }
+        &:hover {
+          background-color: $borders;
+          color: $primary-bg;
+        }
+      }
+    }
+  }
+}
