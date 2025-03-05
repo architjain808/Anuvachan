@@ -41,7 +41,6 @@ export class TranslationTableComponent implements OnInit {
         Validators.maxLength(4),
       ]),
     });
-   
   }
 
   /**
@@ -86,8 +85,8 @@ export class TranslationTableComponent implements OnInit {
         const data = XLSX.utils.sheet_to_json(worksheet);
         // Transform the data to the required format
         const inputData = data.map((row: any) => ({
-          sanskrit: row["sanskrit"], // Assuming the first column is named 'sanskrit'
-          hindiMeaning: row["hindi"], // Assuming the second column is named 'hindi'
+          sanskrit: row["sanskrit"] || row["Sanskrit"], // Assuming the first column is named 'sanskrit'
+          hindiMeaning: row["hindi"] || row["Hindi"], // Assuming the second column is named 'hindi'
         }));
         this.JSONFile.setValue(inputData);
       };
@@ -103,17 +102,13 @@ export class TranslationTableComponent implements OnInit {
    */
   getTranslation() {
     if (this.isExcelUpload) {
+      setTimeout(() => {
+        this.showSlide = true;
+      }, 0);
       this.InputJsonArray = this.JSONFile.value;
       this.syncTranslationFromJSON(this.JSONFile.value);
       return;
     }
-    // const flattenObj = this.flattenObject(this.JSONFile.value);
-    // this.InputJsonArray = Object.keys(flattenObj).map((key) => {
-    //   return {
-    //     key: key,
-    //     english: flattenObj[key],
-    //   };
-    // });
     this.syncTranslationFromJSON(this.InputJsonArray);
   }
 
@@ -293,5 +288,14 @@ export class TranslationTableComponent implements OnInit {
       }
     });
     return result;
+  }
+
+  downloadSampleFile(fileName: string) {
+    const link = document.createElement("a");
+    link.href = "assets/files/Sample-Translation-sheet.xlsx"; // Replace with your actual asset path in the "assets" folder
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }

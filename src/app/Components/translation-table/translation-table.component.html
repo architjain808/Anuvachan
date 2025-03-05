@@ -1,7 +1,7 @@
 <div class="input-container d-flex justify-content-center mt-3">
-<img class="imageTop" src="assets/images/mandana-bottom.svg" alt="">
-  <div class="header primary-text">अवसान</div>
-<img class="imageBottom" src="assets/images/mandana-bottom.svg" alt="">
+  <img class="imageTop" src="assets/images/mandana-bottom.svg" alt="" />
+  <div class="header primary-text">अनुवाचन</div>
+  <img class="imageBottom" src="assets/images/mandana-bottom.svg" alt="" />
   <div class="minimal-btn d-flex justify-content-center">
     <input
       type="file"
@@ -24,14 +24,25 @@
 <!-- <img class="imageBottomBack" src="assets/images/back-paper.svg" alt=""> -->
 
 <div class="btn d-flex justify-content-center">
-  <div class="btn-wrapper d-flex justify-content-center">
+  <div class="btn-wrapper d-flex justify-content-center mr-2">
     <div
-      class="chip-btn d-flex justify-content-center mr-2"
-      (click)="[getTranslation(), (showSlide = true)]"
+      class="chip-btn d-flex justify-content-center"
+      *ngIf="fileName"
+      (click)="[getTranslation()]"
     >
       <i class="pi pi-language mx-2 mt-1"></i>
       <p>अनुवचन</p>
     </div>
+
+    <div
+      class="chip-btn d-flex justify-content-center mr-2"
+      *ngIf="!fileName"
+      (click)="downloadSampleFile('Sample_Translation_file')"
+    >
+      <i class="pi pi-file-export mx-2 mt-1"></i>
+      <p>नमूना पत्रक डाउनलोड करें</p>
+    </div>
+
     <div
       class="chip-btn d-flex justify-content-center"
       *ngIf="totalApiCalls != 0 && completeApiCalls == totalApiCalls"
@@ -43,12 +54,16 @@
   </div>
 </div>
 
-<div class="valueContainer"  [ngClass]="{ showSlide: showSlide }">
+<div
+  class="valueContainer"
+  *ngIf="InputJsonArray.length"
+  [ngClass]="{ showSlide: showSlide }"
+>
   <div class="card px-2" *ngIf="completeApiCalls != totalApiCalls">
     <p-progressBar [value]="getCompletePercent()" />
   </div>
 
-  <div class="card mt-2 p-2" *ngIf="InputJsonArray.length">
+  <div class="card mt-2 p-2">
     <p-table
       [value]="InputJsonArray"
       styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines "
@@ -67,7 +82,7 @@
           <td>{{ i + 1 }}</td>
           <td>{{ product?.sanskrit }}</td>
           <td>{{ product?.hindiMeaning }}</td>
-          <td>{{ product?.englishMeaning  || 'Processing..'}}</td>
+          <td>{{ product?.englishMeaning || "Processing.." }}</td>
         </tr>
       </ng-template>
     </p-table>
