@@ -49,11 +49,9 @@ p {
 }
 
 .header {
-  // margin-top: 60px;
+  margin-top: 32px;
   font-size: 80px;
   font-weight: 500;
-  position: absolute;
-  top: 26%;
 }
 
 .imageBottomBack {
@@ -63,26 +61,39 @@ p {
   z-index: 0;
 }
 .input-container {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   .imageBottom {
-    position: absolute;
-    top: 37%;
+    width: 600px;
+    margin-top: 44px;
   }
   .imageTop {
-    position: absolute;
-    top: 0%;
+    width: 600px;
     transform: scaleY(-1);
+  }
+  @media (max-width: 768px) {
+    .imageBottom {
+      width: 400px;
+    }
+    .imageTop {
+      width: 400px;
+    }
   }
 }
 
 .minimal-btn {
   border: 2px solid $primary-font;
+  width: 50%;
   z-index: 1;
-  position: absolute;
-  top: 55%;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 }
 .btn-wrapper {
-  position: absolute;
-  top: 65%;
+  position: relative;
 
   .chip-btn {
     border: 2px solid $primary-font;
@@ -96,8 +107,8 @@ p {
   }
 }
 .valueContainer {
-  position: absolute;
-  top: 75%;
+  // position: absolute;
+  // top: 75%;
   width: 100%;
   height: 100%;
   transition: all ease-in-out 1s;
