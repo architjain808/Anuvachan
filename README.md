@@ -1,45 +1,69 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+# ✨ Anuvachan - Bridging Ancient Wisdom to Modern Understanding ✨
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
+Anuvachan is an **Angular-based web application** designed to assist in the transcription and translation of ancient **Sanskrit and Hindi texts** into useful **English references**. It addresses a real-life problem faced by organizations working on **deciphering ancient scriptures** and transforming them into a modern language that is accessible and meaningful. 📖🔍
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+## 🌐 Live Demo
+🚀 [Try Anuvachan Now!](https://architjain808.github.io/Anuvachan/)
+
+## 🌟 Why Anuvachan?
+🧘‍♂️ **Preserving Heritage**: Helps in decoding ancient texts, making them relevant for modern researchers, scholars, and enthusiasts.
+
+📜 **Contextual Transcription**: Provides meaningful English references for words, aiding in scriptural understanding.
+
+🖥️ **Easy to Use**: Just upload your **Excel file**, select a word, and get an insightful English transcription in seconds!
+
+## 🚀 Features
+✅ **Upload an Excel Sheet** containing Sanskrit and Hindi words.
+✅ **Select Words** for transcription.
+✅ **Automatic Contextual Transcription** into English.
+✅ **Reference-Based Output** to enhance understanding.
+✅ **Simple & Interactive Interface** for smooth user experience.
+
+## 🛠️ How It Works
+1. **📂 Upload** an Excel file with Sanskrit and Hindi columns.
+2. **🔎 Choose** a word from the uploaded data.
+3. **📝 Get Transcription** with useful English references.
+4. **📜 Utilize** the results for research, learning, and decoding scriptures.
+
+## 🏗️ Tech Stack
+- 🅰️ **Frontend**: Angular
+- 📄 **Data Handling**: XLSX.js (for Excel processing)
+- 🌍 **Deployment**: GitHub Pages
+
+## 💻 Installation & Development
+Want to run Anuvachan locally? Follow these steps:
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/architjain808/Anuvachan.git
+   ```
+2. Navigate to the project folder:
+   ```sh
+   cd Anuvachan
+   ```
+3. Install dependencies:
+   ```sh
+   npm install
+   ```
+4. Run the development server:
+   ```sh
+   ng serve
+   ```
+5. Open the application in the browser:
+   ```
+   http://localhost:4200
+   ```
+
+## 🤝 Contributing
+Your contributions can make a difference! 🌟 If you have suggestions for improvements, feel free to **open an issue** or **submit a pull request**. Let’s make **scripture decryption easier together**! 🙌
+
+## 📜 License
+This project is licensed under the **MIT License**.
+
+## 📩 Contact
+For any queries, collaborations, or suggestions, feel free to reach out:
+- 💻 GitHub: [architjain808](https://github.com/architjain808)
+- 📧 Email: architjain808@gmail.com
 
 ---
-
-## Edit a file
-
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
-
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
-
----
-
-## Create a file
-
-Next, you’ll add a new file to this repository.
-
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
-
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
-
----
-
-## Clone a repository
-
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
-
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
-
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+🙏 **Anuvachan is dedicated to preserving and reviving ancient wisdom, making it accessible for generations to come.** Let's decode history, one word at a time! 🚀📜
