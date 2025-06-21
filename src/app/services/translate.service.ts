@@ -16,7 +16,7 @@ export class TranslateInBatchService {
     Authorization:
       "1M569xUGsgDNmFmb9SIx_mmGMtv-b8AnHt1AOB_U8fUS9_2wYenbGtosytBjDzHM",
   });
-  private GEMINI_API_KEY = "AIzaSyCDKU7C9wnUyxuS9kCS66bLjaKoHNAUj3U";
+  private GEMINI_API_KEY = "AIzaSyA8Fs0OQbxD40ESylTg4P4c2R9z3Au_UOQ";
 
   private geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${this.GEMINI_API_KEY}`;
   public getBhashiniTranslation(
