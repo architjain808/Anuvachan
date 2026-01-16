@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import { Observable, throwError, timer } from "rxjs";
+import { catchError, delayWhen, map, retryWhen, scan } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -16,8 +16,14 @@ export class TranslateInBatchService {
     Authorization:
       "1M569xUGsgDNmFmb9SIx_mmGMtv-b8AnHt1AOB_U8fUS9_2wYenbGtosytBjDzHM",
   });
-  private GEMINI_API_KEY = "AIzaSyA8Fs0OQbxD40ESylTg4P4c2R9z3Au_UOQ";
+  private GEMINI_API_KEY = "AIzaSyAaS2I6JINigtwH1fkdZEXmoA-3Bz5pAtI";
 
+  //AIzaSyAaS2I6JINigtwH1fkdZEXmoA-3Bz5pAtI
+  //AIzaSyCaAtTT4J_u_b9l0_E3xxTGwiS3vB7lV0c
+  //AIzaSyCl9h4MZdOPKLWSoQWa-b33QA-9mIQZpcQ
+  //AIzaSyA8Fs0OQbxD40ESylTg4P4c2R9z3Au_UOQ
+
+  //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
   private geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${this.GEMINI_API_KEY}`;
   public getBhashiniTranslation(
     language: string,
@@ -59,13 +65,78 @@ export class TranslateInBatchService {
       );
   }
 
-  public getGeminiTranslation(InputJson: any) {
+  // public getGeminiTranslation(InputJson: any) {
+  //   const bodyObj = {
+  //     contents: [
+  //       {
+  //         parts: [
+  //           {
+  //             text: `I am providing a JSON array of objects (might have only one object),
+  //             each containing a sanskrit word and its hindi meaning.
+  //             Translate the sanskrit value with the help and reference of Hindi word into English Meaning, If you have multiple english refrences seprate them with a comma but return a single string only.
+  //             Important: there are some sanskrit words meaning of which are not defined then take reference from its Hindi meaning or Jain and buddha litrature to get the exact english meaning of required word.
+  //             Most Importsnt: DO NOT ALTER OR CHANGE ANY ORIGINAL SANSKRIT AND HINDI TEXT FORM INPUT TO OUTPUT
+  //             Add the translated value in a new englishMeaning field for each object and return the same JSON with the new englishMeaning field included.
+  //             Please return only the formatted JSON, with no extra messages or objects. example output
+  //             [{
+  //     "sanskrit": "छिद्र",
+  //     "hindiMeaning": "छिद्र",
+  //     "englishMeaning":"A hole an opening"
+  //           },
+  //           {
+
+  //     "sanskrit": "छित्र",
+  //     "hindiMeaning": "काटा हुआ",
+  //     "englishMeaning":"Broken, cut off"
+  //           },
+  //     {
+  //     "sanskrit": "अङ्गमन्दिर",
+  //     "hindiMeaning": "चम्पा नगरी का एक देव-गृह",
+  //     "englishMeaning":"A temple in a city named Champa"
+  //           },
+  //      {
+  //     "sanskrit": "अञ्जलि",
+  //     "hindiMeaning": "एक या दोनो संकुचित हाथों को ललाट पर रखना",
+  //     "englishMeaning":"Placing one or both hands on the forehead"
+  //           },
+  //           {
+  //     "sanskrit": "अन्तःपुर",
+  //     "hindiMeaning": "अन्तःपुर",
+  //     "englishMeaning":"A Harem"
+  //           }
+  //   ].`,
+  //           },
+  //           {
+  //             text: JSON.stringify(InputJson),
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   };
+
+  //   return this.http.post<any>(this.geminiApiUrl, bodyObj).pipe(
+  //     map((response) => {
+  //       if (response?.candidates?.length > 0) {
+  //         return response.candidates[0].content?.parts[0]?.text;
+  //       }
+  //       return [];
+  //     }),
+  //     catchError((error) => {
+  //       console.error("Error in Gemini:", error);
+  //       return throwError(
+  //         () => new Error("Translation failed, please try again.")
+  //       );
+  //     })
+  //   );
+  // }
+
+  getGeminiTranslation(InputJson: any) {
     const bodyObj = {
-      contents: [
+      model: "microsoft/mai-ds-r1:free",
+      messages: [
         {
-          parts: [
-            {
-              text: `I am providing a JSON array of objects (might have only one object),
+          role: "user",
+          content: `I am providing a JSON array of objects (might have only one object),
             each containing a sanskrit word and its hindi meaning. 
             Translate the sanskrit value with the help and reference of Hindi word into English Meaning, If you have multiple english refrences seprate them with a comma but return a single string only.
             Important: there are some sanskrit words meaning of which are not defined then take reference from its Hindi meaning or Jain and buddha litrature to get the exact english meaning of required word.
@@ -99,28 +170,56 @@ export class TranslateInBatchService {
     "englishMeaning":"A Harem"
           }
   ].`,
-            },
-            {
-              text: JSON.stringify(InputJson),
-            },
-          ],
+        },
+        {
+          role: "user",
+          content: JSON.stringify(InputJson),
         },
       ],
     };
 
-    return this.http.post<any>(this.geminiApiUrl, bodyObj).pipe(
-      map((response) => {
-        if (response?.candidates?.length > 0) {
-          return response.candidates[0].content?.parts[0]?.text;
-        }
-        return [];
-      }),
-      catchError((error) => {
-        console.error("Error in Gemini:", error);
-        return throwError(
-          () => new Error("Translation failed, please try again.")
-        );
-      })
-    );
+  return this.http
+  .post<any>("https://openrouter.ai/api/v1/chat/completions", bodyObj, {
+    headers: new HttpHeaders().set(
+      "Authorization",
+      "Bearer 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"
+    ),
+  })
+  .pipe(
+    // Retry mechanism with exponential backoff
+    retryWhen(errors =>
+      errors.pipe(
+        scan((retryCount, error) => {
+          // Maximum 3 retry attempts
+          if (retryCount >= 3) {
+            throw error;
+          }
+          console.log(`Retry attempt ${retryCount + 1} after error:`, error);
+          return retryCount + 1;
+        }, 0),
+        // Exponential backoff: 1s, 2s, 4s delays
+        delayWhen(retryCount => timer(Math.pow(2, retryCount - 1) * 1000))
+      )
+    ),
+    map((response) => {
+      // Check for valid response structure
+      if (!response || !response.choices || response.choices.length === 0) {
+        throw new Error("Invalid or empty response structure");
+      }
+      
+      const content = response.choices[0]?.message?.content;
+      if (!content || content.trim() === '') {
+        throw new Error("Empty or invalid content in response");
+      }
+      
+      return content;
+    }),
+    catchError((error) => {
+      console.error("Error after all retry attempts:", error);
+      return throwError(
+        () => new Error("API call failed after multiple retries. Please try again.")
+      );
+    })
+  );
   }
 }

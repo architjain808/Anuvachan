@@ -206,7 +206,12 @@ export class TranslationTableComponent implements OnInit {
             // jsonFile = res;
             res.forEach((ele: any) => {
               jsonFile = jsonFile.map((resp) => {
-                if (resp.hindiMeaning.trim() == ele.hindiMeaning.trim()) {
+                if (
+                  this.compareWordsWithoutSpaces(
+                    resp.hindiMeaning,
+                    ele.hindiMeaning
+                  )
+                ) {
                   return { ...resp, englishMeaning: ele.englishMeaning };
                 } else return { ...resp };
               });
@@ -217,6 +222,24 @@ export class TranslationTableComponent implements OnInit {
       await this.utilservice.delay(delayTime || 1500);
     }
   }
+
+ compareWordsWithoutSpaces(word1: string, word2: string): boolean {
+  const cleanAndNormalize = (str: string): string => {
+    const cleanedStr = str?.replace(/\s/g, '');
+
+    // 2. Normalize the string to a standard Unicode form (NFC is recommended for comparisons)
+    // This helps ensure that characters which can be represented in multiple ways
+    // (e.g., a base character + combining diacritic vs. a single precomposed character)
+    // are converted to a consistent form for accurate comparison.
+    return cleanedStr?.normalize('NFC');
+  };
+
+  const cleanedAndNormalizedWord1 = cleanAndNormalize(word1);
+  const cleanedAndNormalizedWord2 = cleanAndNormalize(word2);
+
+  // Compare the cleaned and normalized strings
+  return cleanedAndNormalizedWord1 === cleanedAndNormalizedWord2;
+}
 
   /**
    * handle comon cases
